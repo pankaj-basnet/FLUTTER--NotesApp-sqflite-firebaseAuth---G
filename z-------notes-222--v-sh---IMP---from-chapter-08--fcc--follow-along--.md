@@ -396,6 +396,412 @@ void main() {
   runApp(MaterialApp(
 
 ------------------------------------------------------------------------------------------
+
+<!-- scaffold    -----     sub-chapter      -----    chapter-stateless vs stateful  -->
+
+
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder(color: Colors.red,);
+  }
+}
+
+------------------------------------------------------------------------------------------
+
+https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html
+
+<!-- ------     IMPORTANT       ------     widget        -->
+in flutter , we use everything is a widget . we try to use stateless Widget as much as possible.
+stateless widget changes but unlike , stateful widget doesnot have mutable variables. isn=
+
+------------------------------------------------------------------------------------------
+
+<!--     -----    Register button    -----     sub-chapter      -----    chapter-stateless vs stateful  -->
+
+Register button
+Button on home page in the center to register
+
+------------
+
+body: TextButton(
+        onPressed: () {}, 
+        child: const Text('Register'),
+      ),
+
+-----------
+
+<!-- wrap TextButton widget with Center Widget ---- ctrl + .  --- wrap with center -->
+
+
+body: Center(
+        child: TextButton(
+          onPressed: () {}, 
+          child: const Text('Register'),
+        ),
+      ),
+
+-------------------------------------------------------------------
+
+
+<!--     -----    Login upon button press    -----     sub-chapter      -----    chapter-stateless vs stateful  -->
+
+   Login upon button press --- Change onPressed to async
+
+   when button pressed, register user with firebase
+
+
+login via email
+
+anonymous user
+
+------------------------------------------------------------------------------------------
+ sub-chapter--Firebase Authenticaton
+<!--     -----     -----  sub-topic      -----    sub-chapter--Firebase Authenticaton   -->
+
+------------------------------------------------------------------------------------------
+sub-chapter-- Column widget 
+<!--     -----     -----  sub-topic      -----    sub-chapter-- Column widget   -->
+
+change body: center to Column 
+remove center widget
+wrap TextButton widget with Column widget
+
+change HomePage to StatefulWidget --- Screenshot (6686) ---- Chapter 12 - Basic Registration Screen - --time ---  33 mins  ----.png"
+
+"D:\src--FOLDER\FLUTTER\TUTORIALS\fl\screenshot--v-v-sh---prac\Screenshot (6686) ---- Chapter 12 - Basic Registration Screen - --time ---  33 mins  ----.png"
+
+------------------------------------------------------------------------------------------
+
+TextEditingController --- explaination
+
+late keyword --- late variable --- explaination
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+initState() --- explaination --- initState function
+
+
+dispose() --- explaination --- dispose function
+ dispose function after creating TextEditingController --- {{imp=}}
+
+{{subtopic= }} TextEditingController --- initState() --- dispose() ---
+
+<!-- https://api.flutter.dev/flutter/widgets/State/dispose.html -->
+------------------------------------------------------------------------------------------
+<!-- https://dart.dev/language/variables#late-variables -->
+late keyword explaination --- 
+
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+@override
+  void initState() {
+
+    _email = TextEditingController();
+    _password = TextEditingController(); 
+
+    super.initState();
+  }
+
+@override
+  void dispose() {
+
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+<!-- body: Column(children: [ -->
+
+TextField(controller: _email,
+          ),
+          TextField(controller: _password,
+          ),
+
+------------------------------------------------------------------------------------------
+<!--     -----  sub-topic ---  Hint on text fields   -----    sub-chapter-- Adding Hints  -->
+
+
+            decoration: const InputDecoration(
+              hintText: 'Enter email',
+            ),
+
+------------------------------------------------------------------------------------------
+<!--     -----  sub-topic ---   -----    sub-chapter-- Authentication  -->
+
+import 'package:firebase_auth/firebase_auth.dart';
+
+
+  TextButton(
+            onPressed: () async {
+              final email = _email.text;
+              final password = _password.text;
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: email, password: password);
+            },
+              
+
+  await added --- to remove error ---- to get output instead of "Future" object --- {{sh exp==}} {{subtopic=}}
+  <!-- https://dart.dev/libraries/async/async-await -->
+------------------------------------------------------------------------------------------
+<!--     -----  sub-topic ---   -----    sub-chapter-- Troubleshooting  -->
+
+saurav@LAPTOP-JS10JJ6V MINGW64 /d/src_dev/flutter/sagarmatha/trekkingmap (master)
+$ firebase login
+Already logged in as agrimbhujel2023@gmail.com
+
+saurav@LAPTOP-JS10JJ6V MINGW64 /d/src_dev/flutter/sagarmatha/trekkingmap (master)
+$ date
+Wed, Aug  7, 2024 12:37:49 PM
+
+------------------------------------------------------------------------------------------
+ <!-- No Firebase App ------ ERROR -->
+E/flutter (20172): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [core/no-app] No Firebase App '[DEFAULT]' has been created - call Firebase.initializeApp()
+E/flutter (20172): #0      MethodChannelFirebase.app (package:firebase_core_platform_interface/src/method_channel/method_channel_firebase.dart:195:5)
+E/flutter (20172): #1      Firebase.app (package:firebase_core/src/firebase.dart:79:41)
+E/flutter (20172): #2      FirebaseAuth.instance (package:firebase_auth/src/firebase_auth.dart:38:47)
+
+------------------------------------------------------------------------------------------
+<!--     -----  sub-topic --- make out password text field secure   -----    sub-chapter-- Troubleshooting  -->
+
+TextField(
+            obscureText: true,
+            enableSuggestions: true,
+            autocorrect: true,
+            keyboardType: TextInputType.emailAddress,
+
+------------------------------------------------------------------------------------------
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+  final userCredential = await FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                      email: email, password: password);
+              print(userCredential);
+------------------------------------------------------------------------------------------
+<!-- network-request-failed ---- no wifi in phone ERROR -->
+E/flutter (20172): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.
+
+------------------------------------------------------------------------------------------
+<!--     -----  sub-topic ---    -----    sub-chapter-- handling "configuration not found" error  -->
+
+<!-- CONFIGURATION_NOT_FOUND error -->
+
+E/flutter (20172): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [firebase_auth/unknown] An internal error has occurred. [ CONFIGURATION_NOT_FOUND
+
+------------------------------------------------------------------------------------------
+
+https://console.firebase.google.com/project/flutter-trekkingmap/authentication
+https://console.firebase.google.com/project/flutter-trekkingmap/authentication/providers
+
+https://firebase.google.com/products-build---https://firebase.google.com/products/auth---Getting started button
+https://console.firebase.google.com/project/_/authentication/users?_gl=1*145be1f*_ga*MTY4ODQyODE4LjE3MjMwMTUxNjc.*_ga_CW55HF8NVT*MTcyMzAxNTE2Ny4xLjEuMTcyMzAxNTMyMS40Ny4wLjA.
+https://console.firebase.google.com/project/flutter-trekkingmap/authentication/users
+
+Sign-in providers---Email/Password---enable
+------------------------------------------------------------------------------------------
+
+didnot enter valid email ---- worked----user created -----agrimbhujel@gmail.com 
+
+              print(userCredential);
+
+
+I/flutter (20172): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUser: true, profile: {}, providerId: null, username: null, authorizationCode: null), credential: null, user: User(displayName: null, email: agrimbhujel@gmail.com, isEmailVerified: false, isAnonymous: false, metadata: UserMetadata(creationTime: 2024-08-07 07:27:19.126Z, lastSignInTime: 2024-08-07 07:27:19.126Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: null, email: agrimbhujel@gmail.com, phoneNumber: null, photoURL: null, providerId: password, uid: agrimbhujel@gmail.com)], refreshToken: null, tenantId: null, uid: nsj4LY7xGcZeK8vbcvtNAGo3Fdp1))
+------------------------------------------------------------------------------------------
+
+mb- in case we have three buttons or more and, want to do more work with firebase, we need to initialize firebase app at the start of "app starting"
+mb- trying to remove " await Firebase.initializeApp() "
+
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+
+https://api.flutter.dev/flutter/widgets/widgets-library.html
+https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html
+
+
+------------------------------------------------------------------------------------------
+FutureBuilder explaination
+
+wrap "Column" with widget ----- ctrl + . ---- FutureBuilder
+body: FutureBuilder(
+        child: Column(
+
+------------------------------------------------------------------------------------------
+
+      body: FutureBuilder(
+        builder: (context, snapshot) {
+
+return "Column" widget from "builder"
+
+------------------------------------------------------------------------------------------
+<!-- cut paster code from ""TextButton( onPressed:"" to ""body: FutureBuilder"" -->
+
+Firebase.initializeApp(
+                  options: DefaultFirebaseOptions.currentPlatform,
+                )
+
+--------------------------------
+
+body: FutureBuilder(
+        future: Firebase.initializeApp(
+                  options: DefaultFirebaseOptions.currentPlatform,
+                ),
+        builder: (context, snapshot) {
+
+--------------------------------
+
+TextButton(
+              onPressed: () async {
+                
+                final email = _email.text;
+                final password = _password.text;
+                final userCredential = await FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: email, password: password);
+                print(userCredential);
+              },
+              child: const Text('Register here ...'),
+              
+------------------------------------------------------------------------------------------
+<!-- no wifi in phone --> [firebase_auth/network-request-failed] 
+
+
+I/FirebaseAuth(28731): Creating user with pankajbasnet2020@hotmail.com with empty reCAPTCHA token
+W/System  (28731): Ignoring header X-Firebase-Locale because its value was null.
+E/RecaptchaCallWrapper(28731): Initial task failed for action RecaptchaAction(action=signUpPassword)with exception - A network error (such as timeout, interrupted connection or unreachable host) has occurred.
+E/flutter (28731): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [firebase_auth/network-request-failed] A network error (such as timeout, interrupted connection or unreachable host) has occurred.
+E/flutter (28731): #0      FirebaseAuthHostApi.createUserWithEmailAndPassword (package:firebase_auth_platform_interface/src/pigeon/messages.pigeon.dart:1038:7)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #1      MethodChannelFirebaseAuth.createUserWithEmailAndPassword (package:firebase_auth_platform_interface/src/method_channel/method_channel_firebase_auth.dart:271:22)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #2      FirebaseAuth.createUserWithEmailAndPassword (package:firebase_auth/src/firebase_auth.dart:243:7)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #3      _HomePageState.build.<anonymous closure>.<anonymous closure> (package:trekkingmap/main.dart:84:40)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): 
+
+------------------------------------------------------------------------------------------
+ <!-- Creating user with pankajbasnet2020@hotmail.com -->
+
+I/FirebaseAuth(28731): Creating user with pankajbasnet2020@hotmail.com with empty reCAPTCHA token
+2
+W/System  (28731): Ignoring header X-Firebase-Locale because its value was null.
+I/mbu.trekkingma(28731): Waiting for a blocking GC ProfileSaver
+I/mbu.trekkingma(28731): WaitForGcToComplete blocked ProfileSaver on ProfileSaver for 39.204ms
+D/FirebaseAuth(28731): Notifying id token listeners about user ( v8lNUgYzA2ddc8cq8sPijttkXG12 ).
+D/FirebaseAuth(28731): Notifying auth state listeners about user ( v8lNUgYzA2ddc8cq8sPijttkXG12 ).
+I/flutter (28731): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUser: true, profile: {}, providerId: null, username: null, authorizationCode: null), credential: null, user: User(displayName: null, email: pankajbasnet2020@hotmail.com, isEmailVerified: false, isAnonymous: false, metadata: UserMetadata(creationTime: 2024-08-07 09:53:16.396Z, lastSignInTime: 2024-08-07 09:53:16.396Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: null, email: pankajbasnet2020@hotmail.com, phoneNumber: null, photoURL: null, providerId: password, uid: pankajbasnet2020@hotmail.com)], refreshToken: null, tenantId: null, uid: v8lNUgYzA2ddc8cq8sPijttkXG12))
+
+------------------------------------------------------------------------------------------
+<!-- ERROR ---- already used email bu user registration -->  [firebase_auth/email-already-in-use] 
+
+I/FirebaseAuth(28731): Creating user with pankajbasnet2020@hotmail.com with empty reCAPTCHA token
+W/System  (28731): Ignoring header X-Firebase-Locale because its value was null.
+E/RecaptchaCallWrapper(28731): Initial task failed for action RecaptchaAction(action=signUpPassword)with exception - The email address is already in use by another account.
+E/flutter (28731): [ERROR:flutter/runtime/dart_vm_initializer.cc(41)] Unhandled Exception: [firebase_auth/email-already-in-use] The email address is already in use by another account.
+E/flutter (28731): #0      FirebaseAuthHostApi.createUserWithEmailAndPassword (package:firebase_auth_platform_interface/src/pigeon/messages.pigeon.dart:1038:7)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #1      MethodChannelFirebaseAuth.createUserWithEmailAndPassword (package:firebase_auth_platform_interface/src/method_channel/method_channel_firebase_auth.dart:271:22)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #2      FirebaseAuth.createUserWithEmailAndPassword (package:firebase_auth/src/firebase_auth.dart:243:7)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): #3      _HomePageState.build.<anonymous closure>.<anonymous closure> (package:trekkingmap/main.dart:84:40)
+E/flutter (28731): <asynchronous suspension>
+E/flutter (28731): 
+
+------------------------------------------------------------------------------------------
+
+<!--     -----  sub-topic ---    -----    sub-chapter-- future builder ----END-------///>  -->
+
+------------------------------------------------------------------------------------------
+
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Connection States     -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Connection States     -->
+
+------------------------------------------------------------------------------------------
+
+        add--  switch (snapshot.connectionState) {
+            
+          }
+
+
+""Add missing case clauses"" --- ctrl+. on "switch"
+
+copy paste "Column" widget into switch (snapshot.connectionState)
+
+
+ builder: (context, snapshot) {
+          switch (snapshot.connectionState){
+            
+            case ConnectionState.done:
+              return Column(
+          children: [
+            TextField(
+------------------------------------------------------------------------------------------
+<!-- 
+ body: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              return Column(
+                children: [
+                  TextField( -->
+
+------------------------------------------------------------------------------------------
+ switch (snapshot.connectionState){
+
+default: 
+              return const Text('Loading');
+
+------------------------------------------------------------------------------------------
+
+
+snapshot ---- connectionState --- ConnectionState.done: --- explaination ----- {{subtopic==}}
+
+"Loading..." cannot be seen when register --- because firebase registers user very fast
+
+<!-- hot restart done -->
+Created user with jp5tttttttt@gmail.com
+Created user with jp5ttttt@gmail.com
+
+
+Restarted application in 6,692ms.
+I/AssistStructure(28731): Flattened final assist data: 856 bytes, containing 1 windows, 3 views
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring on
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring off
+2
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring on
+I/AssistStructure(28731): Flattened final assist data: 860 bytes, containing 1 windows, 3 views
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring off
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring on
+========================================
+I/FirebaseAuth(28731): Creating user with jp5tttttttt@gmail.com with empty reCAPTCHA token
+2
+W/System  (28731): Ignoring header X-Firebase-Locale because its value was null.
+D/FirebaseAuth(28731): Notifying id token listeners about user ( SQRWmOqLyVZgelLn5EYuvwj37ZI2 ).
+D/FirebaseAuth(28731): Notifying auth state listeners about user ( SQRWmOqLyVZgelLn5EYuvwj37ZI2 ).
+I/flutter (28731): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUser: true, profile: {}, providerId: null, username: null, authorizationCode: null), credential: null, user: User(displayName: null, email: jp5tttttttt@gmail.com, isEmailVerified: false, isAnonymous: false, metadata: UserMetadata(creationTime: 2024-08-07 10:23:50.748Z, lastSignInTime: 2024-08-07 10:23:50.748Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: null, email: jp5tttttttt@gmail.com, phoneNumber: null, photoURL: null, providerId: password, uid: jp5tttttttt@gmail.com)], refreshToken: null, tenantId: null, uid: SQRWmOqLyVZgelLn5EYuvwj37ZI2))
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring on
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring off
+D/InputConnectionAdaptor(28731): The input method toggled cursor monitoring on
+========================================
+I/FirebaseAuth(28731): Creating user with jp5ttttt@gmail.com with empty reCAPTCHA token
+2
+W/System  (28731): Ignoring header X-Firebase-Locale because its value was null.
+D/FirebaseAuth(28731): Notifying id token listeners about user ( 4hzaStj5jJPWrr7TEC0hIWbSbat1 ).
+D/FirebaseAuth(28731): Notifying auth state listeners about user ( 4hzaStj5jJPWrr7TEC0hIWbSbat1 ).
+I/flutter (28731): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUser: true, profile: {}, providerId: null, username: null, authorizationCode: null), credential: null, user: User(displayName: null, email: jp5ttttt@gmail.com, isEmailVerified: false, isAnonymous: false, metadata: UserMetadata(creationTime: 2024-08-07 10:24:06.379Z, lastSignInTime: 2024-08-07 10:24:06.379Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: null, email: jp5ttttt@gmail.com, phoneNumber: null, photoURL: null, providerId: password, uid: jp5ttttt@gmail.com)], refreshToken: null, tenantId: null, uid: 4hzaStj5jJPWrr7TEC0hIWbSbat1))
+
+------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
