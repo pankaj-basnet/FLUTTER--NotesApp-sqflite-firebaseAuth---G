@@ -1,8 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:trekkingmap/firebase_options.dart';
+import 'package:trekkingmap/views/login_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,43 +14,22 @@ void main() {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      // home: const RegisterView(),
+      // home: const LoginView(),
       home: const HomePage(),
     ),
   );
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  late final TextEditingController _email;
-  late final TextEditingController _password;
-
-  @override
-  void initState() {
-    _email = TextEditingController();
-    _password = TextEditingController();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
-        backgroundColor: Colors.indigoAccent,
+        title: const Text('Welcome to homepage !'),
+        backgroundColor: Colors.white54,
       ),
       body: FutureBuilder(
         future: Firebase.initializeApp(
@@ -58,46 +38,20 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    enableSuggestions: true,
-                    autocorrect: true,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter email ',
-                    ),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: true,
-                    autocorrect: true,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter password',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      final email = _email.text;
-                      final password = _password.text;
-                      final userCredential = await FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      print(userCredential);
-                    },
-                    child: const Text('Register here ..'),
-                  ),
-                ],
-              );
-              default: 
+              final user = FirebaseAuth.instance.currentUser;
+              // final emailVerified = user?.emailVerified ?? false;
+              if (user?.emailVerified ?? false) {
+                print('You are a verified user');
+              } else {
+                print('You need to verify your email first');
+              }
+              return const Text('done ');
+            default:
               return const Text('Loading');
-
           }
         },
       ),
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.blueAccent,
     );
   }
 }
