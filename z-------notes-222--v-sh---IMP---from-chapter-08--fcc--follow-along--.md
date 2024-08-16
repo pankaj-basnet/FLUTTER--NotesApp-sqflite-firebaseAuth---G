@@ -1,3 +1,20 @@
+# git tag "step-1" --- Chapter 16 - -----   mb=        ----- - Free Flutter Course 💙 
+# git tag "step-2" --- Chapter 17 - -----   mb=        ----- - Free Flutter Course 💙 
+# git tag "step-3" --- Chapter 18 - -----   mb=        ----- - Free Flutter Course 💙 
+# git tag "step-4" --- Chapter 19 - Go From Login to Notes View - Free Flutter Course 💙 
+# git tag "step-5" --- Chapter 20 - Cleaning Up our Routes - Free Flutter Course 💙
+# git tag "step-6" --- Chapter 21 - Error Handling in Login View - Free Flutter Course 💙
+# git tag "step-7" --- Chapter 22 - Error Handling in Register View, Next Screen After Registration - Free Flutter Course 💙
+# git tag "step-8" --- Chapter 24 - Auth Service - Free Flutter Course 💙
+# git tag "step-9" --- Chapter 25 -         - Free Flutter Course 💙
+# git tag "step-10" --- Chapter 26 -         - Free Flutter Course 💙
+# git tag "step-11" --- Chapter 27 - CRUD Local Storage - Free Flutter Course 💙
+------no git tag -------Chapter 28 - Working with Streams in Notes Service - Free Flutter Course 💙
+# git tag "step-12" --- Chapter 29 - Preparing Notes View to Read All Notes - Free Flutter Course 💙
+# git tag "step-13" --- Chapter 30 - Preparing to Create New Notes - Free Flutter Course 💙
+# git tag "step-14" --- Chapter 31 - Creating New Notes - Free Flutter Course
+# git tag "step-15" --- Chapter 32 - Displaying Notes in Notes View - Free Flutter Course 💙
+Chapter 33 - Deleting Existing Notes in Notes View - Free Flutter Course 💙
 
 ==================================================================================================
 ==================================================================================================
@@ -818,3 +835,4 @@ I/flutter (28731): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUs
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
+

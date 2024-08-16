@@ -755,6 +755,95 @@ use ""emailVerified""  instead of ------ if (user?.emailVerified)
 
 -----------------------------------------------------------
 
+put "VerifyEmailView" on top of HomePage ---push screen {{informal term mb-}}----
+
+
+
+-----------------------------------------------------------
+builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              final user = FirebaseAuth.instance.currentUser;
+              // final emailVerified = user?.emailVerified ?? false;
+              if (user?.emailVerified ?? false) {
+                print('You are a verified user');
+                return const Text('done ');
+
+              } else {
+                print('You need to verify your email first');
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => VerifyEmailView()));
+              }
+            default:
+              return const Text('Loading');
+          }
+        },
+      ),
+
+-----------------------------------------------------------
+
+builder function of FutureBuilder --- must return a widget ((in Flutter/dart programming))
+
+MaterialPageRoute(builder: (context) => ----- context here refers to ""Widget build(BuildContext context)""
+
+-----------------------------------------------------------
+
+<!--     -----  sub-topic ---    -----    sub-chapter     --      CTA Button and text   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      CTA Button and text   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      CTA Button and text   ---       -->
+Display Column, Text and a TextButton a send verification email
+
+
+
+-----------------------------------------------------------
+<!-- time 13 mins -->
+
+return const Scaffold(); ---- const means "constant" --- there is no special configuration done to make it "not const"
+
+
+
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
+
+  @override
+  State<VerifyEmailView> createState() => VerifyEmailViewState();
+}
+
+class VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold();
+  }
+}
+
+-----------------------------------------------------------
+
+
+class VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(  -------  remove this 'const" to remove error on "AppBar" 
+      appBar: AppBar( ------- ERROR ------- The constructor being called isn't a const constructor. Try removing 'const" 
+        title: Text('Verify email'), -----  dart suggestion ----- add "const" keyword to constructor invocation.
+      ),
+    );
+  }
+}
+
+// BuildContext explaination --- Scaffold exp=
+
+-----------------------------------------------------------
+
+
+class VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Verify email'),
+      ),
+    );
+  }
+}
 
 
 
@@ -762,46 +851,242 @@ use ""emailVerified""  instead of ------ if (user?.emailVerified)
 -----------------------------------------------------------
 
 
------------------------------------------------------------
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Send email verification   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Send email verification   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Send email verification   ---       -->
+await user?.sendEmailVerification()
 
-
-
-
-
------------------------------------------------------------
-
-
-
-
-
------------------------------------------------------------
-
-
-
-
+body: Column(
+        children: [
+          const Text('Please verify your email address'),
+          TextButton(onPressed: () async { ------- onPressed function 1st argument, Text --- 2nd argument
+          final user = FirebaseAuth.instance.currentUser;
+          await user?.sendEmailVerification(); ---------- this is "future" so aysn await
+          }, child: const Text('Send email verification'),)
+        ],
+      ),
 
 -----------------------------------------------------------
 
 
 
 
+From: noreply@flutter-trekkingmap.firebaseapp.com <noreply@flutter-trekkingmap.firebaseapp.com>
+Sent: Thursday, August 8, 2024 7:22 PM
+To: pankajbasnet2020@hotmail.com <pankajbasnet2020@hotmail.com>
+Subject: Verify your email for flutter-trekkingmap
+ 
+Hello,
+
+Follow this link to verify your email address.
+
+https://flutter-trekkingmap.firebaseapp.com/__/auth/action?mode=verifyEmail&oobCode=2HP1bvFBMzaGWDD9wTNVngA3VbrI_FeBpUBW1SKwHpoAAAGRMjUy2A&apiKey=AIzaSyCKtytEe8aOTXcCRJnf4WobLvq6GXbcVVc&lang=en
+
+If you didn’t ask to verify this address, you can ignore this email.
+
+Thanks,
+
+Your flutter-trekkingmap team
+
+
+
+
+-----------------------------------------------------------
+
+Error while hot reload ---- reason --> Navigator.of(context).push(MaterialPageRoute(builder: (context) => const VerifyEmailView(),),);
+Scaffold of VerifyEmailView on top of "Scaffold of HomePage" ---not allowed --- not allowed on FutureBuilder
+
+-----------------------------------------------------------
+<!-- 
+class VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Verify email'),
+        backgroundColor: Colors.amber[900],
+      ),
+      body: Column(
+        children: [
+          const Text('Please verify your email address'),
+          TextButton(onPressed: () async {
+          final user = FirebaseAuth.instance.currentUser;
+          await user?.sendEmailVerification();
+          }, child: const Text('Send email verification'),)
+        ],
+      ),
+      backgroundColor: Colors.amberAccent,
+    );
+  }
+} -->
+
+---------------
+cut "Column" widget ---- delete Scaffold widget --- paste "Column" widget 
+
+
+class VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+        children: [
+          const Text('Please verify your email address'),
+          TextButton(onPressed: () async {
+          final user = FirebaseAuth.instance.currentUser;
+          await user?.sendEmailVerification();
+          }, child: const Text('Send email verification'),)
+        ],
+      );
+  }
+}
+-----------------------------------------------------------
+
+delete ---- Navigator.of(context).push( MaterialPageRoute(builder: (context) => const VerifyEmailView(),),);
+---------
+return VerifyEmailView()
+--------------------------------------------------
+Previous "Scaffold" error solved
+now, only "column" widget pushed inside "HomePage Scaffold" ---- better than scaffold on top of scaffold "error"
+
+
 
 -----------------------------------------------------------
 
 
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Change LoginView and RegisterView as well   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Change LoginView and RegisterView as well   ---       -->
+<!--     -----  sub-topic ---    -----    sub-chapter     --      Change LoginView and RegisterView as well   ---       -->
+They shouldn't (for now) return a Scaffold, that's the job of HomePage
+
+<!-- ..... -->
+try to solve "email not verified" problem
+-----------------------------------------------------------
+<!-- cut Column widget ====== in Login_view.dart -->
+
+<!-- ================= -->
+return Column(
+                children: [
+                  TextField(
+                    controller: _email,
+                    enableSuggestions: true,
+                    autocorrect: true,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter email ',
+                    ),
+                  ),
+                  TextField(
+                    controller: _password,
+                    obscureText: true,
+                    enableSuggestions: true,
+                    autocorrect: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter password',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      final email = _email.text;
+                      final password = _password.text;
+                      try {
+                        final userCredential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email, password: password);
+                        print(userCredential);
+                      } on FirebaseAuthException catch (e) {
+                        // .................
+                        // if (e.code == 'invalid-credential') {
+                        //   print('User not foundd...');
+                        // } else {
+                        //   print('something else happened...>>');
+                        //   print(e.code);
+                        //   print(e);
+                        // }
+                        // .................
+                        // if (e.code == 'user-not-found') {
+                        //   print('User not found');
+                        // } else if (e.code == 'wrong-password') {
+                        //   print('Wrong password');
+                        // }
+                        // .................
+                        print('invalid email or password....sn=');
+                      }
+                    },
+                    child: const Text('Login here ..'),
+                  ),
+                ],
+              )
+<!-- ================= ///>>> -->
+
+
+-----------------------------------------------------------
+paste "Column widget" on top of "return Scaffold" ----- {{delete "return Scaffold"}}
+<!-- return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+        backgroundColor: Colors.teal,
+      ),
+      body: FutureBuilder(
+        future: Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        ),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              ;
+            default:
+              return const Text('Loading');
+          }
+        },
+      ),
+      backgroundColor: Colors.greenAccent,
+    ); -->
+
+-----------------------------------------------------------
+repeated code ----- code already in HomePage---- return Scaffold --- Firebase.initializeApp
 
 
 
 -----------------------------------------------------------
 
+do same thing as Login_view.dart on "register_view.dart"
+paste "Column widget" on top of "return Scaffold" ----- {{delete "return Scaffold"}}
 
+-----------------------------------------------------------
+<!-- D:\src_dev\flutter\sagarmatha\trekkingmap\lib\main.dart -->
+builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              // final user = FirebaseAuth.instance.currentUser;
+              // print(user);
+              // // final emailVerified = user?.emailVerified ?? false;
+              // if (user?.emailVerified ?? false) {
+              //   print('verified------------------------------');
+              //   return const Text('done ');
 
+              // } else {
+              //   print('why????????????? verified?????????????');
+
+              //   return const  VerifyEmailView();
+
+              // }
+              return LoginView();
 
 
 -----------------------------------------------------------
 
-
-
+ctrl + S ---- or hot reload  --- after above code changes {{{return const  VerifyEmailView();}}}  --- not hot restart
 
 
 -----------------------------------------------------------
+<!-- Logging in as pankajbasnet2020@hotmail.com  -->
+I/FirebaseAuth( 1964): Logging in as pankajbasnet2020@hotmail.com with empty reCAPTCHA token
+2
+W/System  ( 1964): Ignoring header X-Firebase-Locale because its value was null.
+D/FirebaseAuth( 1964): Notifying id token listeners about user ( v8lNUgYzA2ddc8cq8sPijttkXG12 ).
+I/flutter ( 1964): UserCredential(additionalUserInfo: AdditionalUserInfo(isNewUser: false, profile: {}, providerId: null, username: null, authorizationCode: null), credential: null, user: User(displayName: null, email: pankajbasnet2020@hotmail.com, isEmailVerified: true, isAnonymous: false, metadata: UserMetadata(creationTime: 2024-08-07 09:53:16.396Z, lastSignInTime: 2024-08-08 14:42:05.271Z), phoneNumber: null, photoURL: null, providerData, [UserInfo(displayName: null, email: pankajbasnet2020@hotmail.com, phoneNumber: null, photoURL: null, providerId: password, uid: pankajbasnet2020@hotmail.com)], refreshToken: null, tenantId: null, uid: v8lNUgYzA2ddc8cq8sPijttkXG12))
+
+
+-----------------------------------------------------------
+ <!-- isEmailVerified: true -->
+
+
