@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trekkingmap/services/auth/auth_service.dart';
 import 'package:trekkingmap/contants/routes.dart';
+import 'package:trekkingmap/services/auth/auth_service.dart';
 
 class VerifyEmailView extends StatefulWidget {
   const VerifyEmailView({Key? key}) : super(key: key);

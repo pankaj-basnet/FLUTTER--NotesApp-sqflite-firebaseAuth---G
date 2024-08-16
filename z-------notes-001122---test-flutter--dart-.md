@@ -126,9 +126,9 @@ E/        (18660): Shared attribute region not available to be mapped
 ======================================================================================================
 ======================================================================================================
 
-==========================     aug 16     ===== github commit =====
-==========================     aug 16     ===== github commit =====
-==========================     aug 16     ===== github commit =====
+==========      --- step 10--- chapter- 26 ---      ===== github commit =====
+==========      --- step 10--- chapter- 26 ---      ===== github commit =====
+==========      --- step 10--- chapter- 26 ---      ===== github commit =====
 
 flutter running properly on android 
 
@@ -143,5 +143,32 @@ Current funtionality :
 registered and logged in with new email into flutter and firebase
 if email not verified, but try to log in , user sent to email verification view
 log in user
+Using AuthService ----- distancing firebase and our main UI
+
+==========================  
+
+saurav@LAPTOP-JS10JJ6V MINGW64 /d/src_dev/flutter/sagarmatha (main)
+$ git commit -am "--- step 10--- chapter- 26 --- log in , register, log out --- "
 
 
+
+
+
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+
+==========      --- step 16--- chapter- 33 ---      ===== github commit =====
+
+% flutter running properly on android 
+
+Current funtionality :
+            =   log in
+            =   sign in / register
+            =   automatic email verification link sent after sign up
+            =   log out
+            =   firebase authentication
+            =   Create note, delete note, database

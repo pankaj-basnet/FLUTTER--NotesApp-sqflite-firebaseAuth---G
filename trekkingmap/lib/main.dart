@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:trekkingmap/contants/routes.dart';
 import 'package:trekkingmap/services/auth/auth_service.dart';
 import 'package:trekkingmap/views/login_view.dart';
-import 'package:trekkingmap/views/notes_view.dart';
+import 'package:trekkingmap/views/notes/new_note_view.dart';
+import 'package:trekkingmap/views/notes/notes_view.dart';
 import 'package:trekkingmap/views/register_view.dart';
 import 'package:trekkingmap/views/verify_email_view.dart';
-import 'package:trekkingmap/contants/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,7 @@ void main() {
         registerRoute: (context) => const RegisterView(),
         notesRoute: (context) => const NotesView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
+        newNoteRoute: (context) => const NewNoteView(),
       },
     ),
   );

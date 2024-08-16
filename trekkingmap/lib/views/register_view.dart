@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:trekkingmap/services/auth/auth_exceptions.dart';
 import 'package:trekkingmap/services/auth/auth_service.dart';
 import 'package:trekkingmap/contants/routes.dart';
-import 'package:trekkingmap/utilites/show_error_dialog.dart';
+import 'package:trekkingmap/utilites/dialogs/error_dialog.dart';
+
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
