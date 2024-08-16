@@ -901,8 +901,33 @@ lib/utilities/dialogs/generic_dialog.dart
 
 delete "show_error_dialog.dart"
 
+
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+----------------------------------------------------------------------
+saurav@LAPTOP-JS10JJ6V MINGW64 /d/src_dev/flutter/sagarmatha (main)
+$ git commit -am "---- chap-19 done ---mb--sn---chap-18 done 100% ---log in--log out--register---done--"
+[main 1d1507f] ---- chap-19 done ---mb--sn---chap-18 done 100% ---log in--log out--register---done--
+ 20 files changed, 4617 insertions(+), 146 deletions(-)
+ create mode 100644 .vscode/launch.json
+ create mode 100644 testing.db
+ create mode 100644 trekkingmap/lib/contants/routes.dart
+ create mode 100644 trekkingmap/lib/services/auth/auth_exceptions.dart
+ create mode 100644 trekkingmap/lib/utilites/show_error_dialog.dart
+ create mode 100644 trekkingmap/lib/views/verify_email_view.dart
+ create mode 100644 z---------notes-001122---test-flutter--dart-.md
+ create mode 100644 z-------notes-000---dart--topics--concepts-.md
+ create mode 100644 z-------notes-444--chap-14---v-sh--.md
+ create mode 100644 z-------notes-555--chap-18--23---v-sh--.md
+ create mode 100644 z-------notes-666--chap-24--28---v-sh--.md
+ create mode 100644 z-------notes-777--chap-29--------v-sh--.md
+
+----------------------------------------------------------------------
+----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+https://youtu.be/XVWE3mJxOZA?list=PL6yRaaP0WPkVtoeNIGqILtRAgd3h2CNpT&t=1533
 
 
 

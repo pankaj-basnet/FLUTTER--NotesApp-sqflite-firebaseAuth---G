@@ -5,9 +5,9 @@
 ======================================================================================================
 ======================================================================================================
 
-==========================     aug 16     ==========================
-==========================     aug 16     ==========================
-==========================     aug 16     ==========================
+==========================     aug 16     ===== github commit =====
+==========================     aug 16     ===== github commit =====
+==========================     aug 16     ===== github commit =====
 
 flutter running properly on android 
 
@@ -117,3 +117,31 @@ D/InputConnectionAdaptor(18660): The input method toggled cursor monitoring on
 I/gralloc (18660): gralloc_register_buffer hnd=0xab32a1c0, share_fd=88, share_attr_fd=-1, magic=51647890, format=1, internal_format=1, byte_stride=1920, flags=4, usage=0xb00, size=1639680, width=480, height=854, internalWidth=480, internalHeight=854, stride=480, base=0x85071000, writeOwner=0, attr_base=0xffffffff, yuv_info=1, fd=-1, buf_idx=0, offset=0, min_pgsz=4096, phyaddr=0
 E/        (18660): Shared attribute region not available to be mapped
  -->
+
+
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+======================================================================================================
+
+==========================     aug 16     ===== github commit =====
+==========================     aug 16     ===== github commit =====
+==========================     aug 16     ===== github commit =====
+
+flutter running properly on android 
+
+Current funtionality :
+            =   log in
+            =   sign in / register
+            =   automatic email verification link sent after sign up
+            =   log out
+            =   firebase authentication
+
+
+registered and logged in with new email into flutter and firebase
+if email not verified, but try to log in , user sent to email verification view
+log in user
+
+

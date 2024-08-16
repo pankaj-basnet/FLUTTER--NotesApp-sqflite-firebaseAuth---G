@@ -1,15 +1,11 @@
-// ## chapter 12 ================================================================================
-import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart'; // unused import
 import 'package:flutter/material.dart';
-// import 'package:trekkingmap/firebase_options.dart'; // unused import
-import 'dart:developer' as devtools show log; // unused import in isn=
-
+import 'package:trekkingmap/services/auth/auth_exceptions.dart';
+import 'package:trekkingmap/services/auth/auth_service.dart';
 import 'package:trekkingmap/contants/routes.dart';
 import 'package:trekkingmap/utilites/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+  const LoginView({Key? key}) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -23,7 +19,6 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
-
     super.initState();
   }
 
@@ -36,8 +31,6 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-        print('login view ------------------sn=----');
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -46,20 +39,20 @@ class _LoginViewState extends State<LoginView> {
         children: [
           TextField(
             controller: _email,
-            enableSuggestions: true,
-            autocorrect: true,
+            enableSuggestions: false,
+            autocorrect: false,
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
-              hintText: 'Enter email ',
+              hintText: 'Enter your email here',
             ),
           ),
           TextField(
             controller: _password,
             obscureText: true,
-            enableSuggestions: true,
-            autocorrect: true,
+            enableSuggestions: false,
+            autocorrect: false,
             decoration: const InputDecoration(
-              hintText: 'Enter password',
+              hintText: 'Enter your password here',
             ),
           ),
           TextButton(
@@ -67,96 +60,52 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-              
-                await FirebaseAuth.instance.signInWithEmailAndPassword(
+                await AuthService.firebase().logIn(
                   email: email,
                   password: password,
                 );
-                final user = FirebaseAuth.instance.currentUser;
-                if (user?.emailVerified ?? false) {
-                  // user's email is verified ---{{email verification link clicked in email}}
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
+                  // user's email is verified
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                  notesRoute,
-                  (route) => false,
-                );
+                    notesRoute,
+                    (route) => false,
+                  );
                 } else {
-                  // user's email is NOT verified 
+                  // user's email is NOT verified
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                  verifyEmailRoute,
-                  (route) => false,
-                );
-
-                }
-                
-
-                // chap-19--------240811------
-                // final userCredential =
-                //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-                //   email: email,
-                //   password: password,
-                // );
-
-                // devtools.log(userCredential.toString());
-              } on FirebaseAuthException catch (e) {
-                // .................
-                // if (e.code == 'invalid-credential') {
-                //   print('User not foundd...');
-                // } else {
-                //   print('something else happened...>>');
-                //   print(e.code);
-                //   print(e);
-                // }
-                // .................
-                // .................
-                // devtools.log(e.code);
-                // print(e);
-                // .................
-                // .................
-                // if (e.code == 'user-not-found') {      // [log] invalid-credential --- message during practice
-                if (e.code == 'invalid-credential') {
-                  // ...
-                  // devtools.log('User not found');
-                  // ...
-                  await showErrorDialog(
-                    context,
-                    'User not found --- wrong user/pwd...',
-                  );
-                  // firebase throws "invalid-credential" for both wrong username or password ---240811-prac
-                } else if (e.code == 'wrong-password') {
-                  // ...
-                  // devtools.log('Wrong password');
-                  // ...
-                  await showErrorDialog(
-                    context,
-                    'wrong credential',
-                  );
-                  // .................
-                  // print('invalid email or password....sn=');
-                  // ...
-                } else {
-                  // any rare exception from firebase
-                  await showErrorDialog(
-                    context,
-                    'Error: ${e.code}...',
+                    verifyEmailRoute,
+                    (route) => false,
                   );
                 }
-              } catch (e) {
+              } on UserNotFoundAuthException {
                 await showErrorDialog(
                   context,
-                  'Error: ${e.toString()}...',
+                  'User not found',
+                );
+              } on WrongPasswordAuthException {
+                await showErrorDialog(
+                  context,
+                  'Wrong credentials',
+                );
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  'Authentication error',
                 );
               }
             },
-            child: const Text('Login here ..'),
+            child: const Text('Login'),
           ),
           TextButton(
-              onPressed: () => {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      registerRoute,
-                      (route) => false,
-                    )
-                  },
-              child: const Text('Not registered yet? Register here.'))
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                registerRoute,
+                (route) => false,
+              );
+            },
+            child: const Text('Not registered yet? Register here!'),
+          )
         ],
       ),
     );
