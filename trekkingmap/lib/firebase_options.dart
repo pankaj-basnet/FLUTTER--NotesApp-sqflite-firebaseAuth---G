@@ -53,9 +53,9 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCKtytEe8aOTXcCRJnf4WobLvq6GXbcVVc',
-    appId: '1:104854087001:android:40a78e782baaa88f951848',
-    messagingSenderId: '104854087001',
+    apiKey: 'CfeAIzaSyCKtytEe8aOTXcCRJnf4WobLvq6GXbcVVc',
+    appId: '1:104854087001:android:40a78e782baaa88f9518480522',
+    messagingSenderId: '10485408700111633',
     projectId: 'flutter-trekkingmap',
     storageBucket: 'flutter-trekkingmap.appspot.com',
   );
