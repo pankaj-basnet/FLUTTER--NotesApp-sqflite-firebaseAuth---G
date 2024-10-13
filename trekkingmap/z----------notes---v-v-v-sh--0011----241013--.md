@@ -1,0 +1,1 @@
+FLUTTER--NotesApp-sqflite-firebaseAuth---G FLUTTER with firebase database and authentication ( firebase storage easily replacable with local storage & sqflite )
